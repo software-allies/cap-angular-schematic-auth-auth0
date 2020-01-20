@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "cap-angular-schematic-auth-auth0",
+    "title": "cap-angular-schematic-auth-auth0",
+    "type": "object",
+    "properties": {
+      "clientID": {
+        "type": "string",
+        "description": "clientID",
+        "x-prompt": "Set your Auth0 Client ID:"
+      },
+      "clientSecret": {
+        "type": "string",
+        "description": "clientSecret",
+        "x-prompt": "Set your Auth0 Client Secret:"
+      },
+      "domain": {
+        "type": "string",
+        "description": "domian",
+        "x-prompt": "Set your Auth0 Domain:"
+      }
+    },
+    "required": []
+  }
