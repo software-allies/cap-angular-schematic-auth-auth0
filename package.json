@@ -13,12 +13,21 @@
   "license": "MIT",
   "schematics": "./src/collection.json",
   "dependencies": {
-    "@angular-devkit/core": "^7.3.1",
-    "@angular-devkit/schematics": "^7.3.1",
-    "@schematics/angular": "^8.3.23",
-    "@types/jasmine": "^3.0.0",
-    "@types/node": "^8.0.31",
+    "schematics-utilities": "^2.0.0",
+    "ts-jest": "^24.0.2",
+    "ts-morph": "6.0.2",
+    "typescript": "^3.7.2",
+    "@types/node": "^12.12.11",
+    "@types/json5": "0.0.30",
     "jasmine": "^3.0.0",
-    "typescript": "~3.2.2"
+    "@schematics/angular": "8.3.19",
+    "@angular-devkit/core": "^8.3.19",
+    "@angular-devkit/schematics": "^8.3.19",
+    "@angular/common": "^8.2.14",
+    "@angular/core": "^8.2.14",
+    "@types/jasmine": "^3.0.0"
+  },
+  "devDependencies": {
+    "schematics-utilities": "^2.0.0"
   }
 }
