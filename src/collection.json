@@ -3,7 +3,7 @@
   "schematics": {
     "cap-angular-schematic-auth-auth0": {
       "description": "A blank schematic.",
-      "factory": "./cap-angular-schematic-auth-auth0/index#capAngularSchematicAuthAuth0",
+      "factory": "./cap-angular-schematic-auth-auth0/",
       "schema": "./cap-angular-schematic-auth-auth0/schema.json"
     }
   }
