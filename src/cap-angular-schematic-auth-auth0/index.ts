@@ -79,7 +79,7 @@ export function addPackageJsonDependencies(): Rule {
   return (host: Tree, context: SchematicContext) => {
     const dependencies: NodeDependency[] = [
       { type: NodeDependencyType.Default, version: '^2.2.0', name: 'jwt-decode' },
-      { type: NodeDependencyType.Default, version: '^4.0.0', name: 'bootstrap' },
+      { type: NodeDependencyType.Default, version: '^4.3.1', name: 'bootstrap' },
     ];
     dependencies.forEach(dependency => {
       addPackageJsonDependency(host, dependency);
