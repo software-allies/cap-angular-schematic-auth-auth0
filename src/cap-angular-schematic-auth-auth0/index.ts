@@ -24,10 +24,13 @@ import {
   getAppModulePath,
   WorkspaceProject,
   addImportToModule,
+  // findPropertyInAstObject,
+  // findModule,
+  // removePropertyInAstObject,
   // InsertChange,
 } from 'schematics-utilities';
 
-import { getProjectMainFile, getSourceFile } from 'schematics-utilities/dist/cdk';
+import { getProjectMainFile, getSourceFile, } from 'schematics-utilities/dist/cdk';
 import { normalize, join } from 'path';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
@@ -110,14 +113,17 @@ export function auxAddModuleRoorToImports (host: Tree, modulePath: string, modul
   if (!moduleSource) {
     throw new SchematicsException(`Module not found: ${modulePath}`);
   }
+
   const changes = addImportToModule(moduleSource as any, modulePath, moduleName, src);
   let recorder = host.beginUpdate(modulePath);
   changes.forEach((change:any) => {
     // if (change instanceof InsertChange) {
-      if (change.toAdd === ',\n    CapAuthModule' && change.toAdd) {
-        change.toAdd = `,\n    CapAuthModule.forRoot({clientId: '${options.clientID}', domain: '${options.domain}', clientSecret: '${options.clientSecret}'})`;
+      if (change.toAdd) {
+        if (change.toAdd === ',\n    CapAuthModule') {
+          change.toAdd = `,\n    CapAuthModule.forRoot({clientId: '${options.clientID}', domain: '${options.domain}', clientSecret: '${options.clientSecret}'})`;
+        }
+        recorder.insertLeft(change.pos, change.toAdd);
       }
-      recorder.insertLeft(change.pos, change.toAdd);
     // }
   });
   host.commitUpdate(recorder);
