@@ -78,7 +78,8 @@ export function capAngularSchematicAuthAuth0(_options: any): Rule {
 export function addPackageJsonDependencies(): Rule {
   return (host: Tree, context: SchematicContext) => {
     const dependencies: NodeDependency[] = [
-      { type: NodeDependencyType.Default, version: '^2.2.0', name: 'jwt-decode' },
+      { type: NodeDependencyType.Default, version: '^1.0.5', name: 'cap-authentication' },
+      { type: NodeDependencyType.Default, version: '^3.0.1', name: '@auth0/angular-jwt' },
       { type: NodeDependencyType.Default, version: '^4.3.1', name: 'bootstrap' },
     ];
     dependencies.forEach(dependency => {
@@ -103,13 +104,14 @@ function addModuleToImports (options: any): Rule {
     let project : WorkspaceProject = getProjectFromWorkspace(workspace, options.project);
     const moduleName = 'CapAuthModule';
     const modulePath = getAppModulePath(host, getProjectMainFile(project));
-    auxAddModuleRoorToImports(host, modulePath, moduleName, './modules/cap-auth/cap-auth.module', options);
+    auxAddModuleRoorToImports(host, modulePath, moduleName, './modules/cap-auth/cap-auth.module');
     return host;
   };
 }
 
-export function auxAddModuleRoorToImports (host: Tree, modulePath: string, moduleName: string, src: string, options?: any) {
+export function auxAddModuleRoorToImports (host: Tree, modulePath: string, moduleName: string, src: string) {
   const moduleSource = getSourceFile(host, modulePath);
+
   if (!moduleSource) {
     throw new SchematicsException(`Module not found: ${modulePath}`);
   }
@@ -119,9 +121,9 @@ export function auxAddModuleRoorToImports (host: Tree, modulePath: string, modul
   changes.forEach((change:any) => {
     // if (change instanceof InsertChange) {
       if (change.toAdd) {
-        if (change.toAdd === ',\n    CapAuthModule') {
-          change.toAdd = `,\n    CapAuthModule.forRoot({clientId: '${options.clientID}', domain: '${options.domain}', clientSecret: '${options.clientSecret}'})`;
-        }
+        // if (change.toAdd === ',\n    CapAuthModule') {
+        //   change.toAdd = `,\n    CapAuthModule.forRoot({clientId: '${options.clientID}', domain: '${options.domain}', clientSecret: '${options.clientSecret}'})`;
+        // }
         recorder.insertLeft(change.pos, change.toAdd);
       }
     // }
