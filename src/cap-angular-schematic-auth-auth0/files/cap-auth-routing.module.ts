@@ -5,17 +5,17 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 
-import { canActivaOutService} from './canActivate-out.service';
-import { canActivaInService } from './canActivate-in.service';
+import { CanActivaOutService} from './canActivate-out.service';
+import { CanActivaInService } from './canActivate-in.service';
 
 const routes: Routes = [
   {
     path: 'auth',
     children: [
-      { path: 'register', component: RegisterComponent, canActivate: [canActivaOutService]},
-      { path: 'login', component: LoginComponent, canActivate: [canActivaOutService]},
-      { path: 'forgot-password', component: ForgotComponent, canActivate: [canActivaOutService]},
-      { path: 'profile', component : ProfileComponent, canActivate: [canActivaInService]}
+      { path: 'register', component: RegisterComponent, canActivate: [CanActivaOutService]},
+      { path: 'login', component: LoginComponent, canActivate: [CanActivaOutService]},
+      { path: 'forgot-password', component: ForgotComponent, canActivate: [CanActivaOutService]},
+      { path: 'profile', component : ProfileComponent, canActivate: [CanActivaInService]}
     ]
   }
 ];
