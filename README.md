@@ -5,11 +5,6 @@ Schematics are generators that transform an existing filesystem. They can create
 
 What distinguishes Schematics from other generators, such as Yeoman or Yarn Create, is that schematics are purely descriptive; no changes are applied to the actual filesystem until everything is ready to be committed. There is no side effect, by design, in Schematics.
 
-## **`Important!`**
-In order to use the scheme globally in any Angular project on your PC, you must do the installation globally.
-```
-npm i -g cap-angular-schematic-auth-auth0
-```
 
 ## **Previous requirements**
 **cap-angular-schematic-auth-auth0** use bootstrap's classes. To be able to display the component in the right way. Schematic install bootstrap automatically to the most recent version and you have to configure the `angular.json` and write into `styles` [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/download/):
@@ -27,7 +22,7 @@ npm i -g cap-angular-schematic-auth-auth0
 To run the schematic you have to execute the following command on your terminal.
 
 ```
-ng g cap-angular-schematic-auth-auth0:cap-angular-schematic-auth-auth0
+ng add cap-angular-schematic-auth-auth0
 ```
 
 previously the schematic will ask the Auth0 authentication services credentials to be configured in the module.
