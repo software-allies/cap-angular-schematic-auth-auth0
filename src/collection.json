@@ -2,8 +2,13 @@
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     "cap-angular-schematic-auth-auth0": {
-      "description": "A blank schematic.",
+      "description": "Schematic with a authentication module.",
       "factory": "./cap-angular-schematic-auth-auth0/",
+      "schema": "./cap-angular-schematic-auth-auth0/schema.json"
+    },
+    "ng-add": {
+      "description": "Add schematic",
+      "factory": "./ng-add/index",
       "schema": "./cap-angular-schematic-auth-auth0/schema.json"
     }
   }
