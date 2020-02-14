@@ -78,9 +78,10 @@ export function capAngularSchematicAuthAuth0(_options: any): Rule {
 export function addPackageJsonDependencies(): Rule {
   return (host: Tree, context: SchematicContext) => {
     const dependencies: NodeDependency[] = [
-      { type: NodeDependencyType.Default, version: '^1.0.5', name: 'cap-authentication' },
+      { type: NodeDependencyType.Default, version: '^1.0.7', name: 'cap-authentication' },
       { type: NodeDependencyType.Default, version: '^3.0.1', name: '@auth0/angular-jwt' },
       { type: NodeDependencyType.Default, version: '^4.3.1', name: 'bootstrap' },
+      { type: NodeDependencyType.Default, version: '^3.3.3', name: 'uuid' }
     ];
     dependencies.forEach(dependency => {
       addPackageJsonDependency(host, dependency);
