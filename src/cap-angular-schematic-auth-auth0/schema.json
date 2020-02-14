@@ -18,6 +18,11 @@
         "type": "string",
         "description": "domian",
         "x-prompt": "Set your Auth0 Domain:"
+      },
+      "endPoint": {
+        "type": "string",
+        "description": "endPoint",
+        "x-prompt": "Set your endPoint:"
       }
     },
     "required": []

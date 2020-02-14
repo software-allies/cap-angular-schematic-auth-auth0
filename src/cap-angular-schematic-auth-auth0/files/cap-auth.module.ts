@@ -23,7 +23,8 @@ import { AuthenticationAuth0Module } from 'cap-authentication';
     AuthenticationAuth0Module.forRoot({
       clientId: '<%=clientID%>',
       clientSecret: '<%=clientSecret%>',
-      domain: '<%=domain%>'
+      domain: '<%=domain%>',
+      endPoint: '<%=endPoint%>'
     })
   ],
   declarations: [
