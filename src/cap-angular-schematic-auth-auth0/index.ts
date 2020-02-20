@@ -1,134 +1,157 @@
-import {
+import { strings } from '@angular-devkit/core';
+import { 
   apply,
-  MergeStrategy,
-  mergeWith,
-  Rule,
-  move,
-  SchematicContext,
-  Tree,
   template,
-  url,
+  branchAndMerge,
   chain,
-  noop,
   forEach,
   FileEntry,
+  mergeWith,
+  move,
+  Rule,
   SchematicsException,
-} from '@angular-devkit/schematics';
-
+  Tree,
+  url,
+  SchematicContext
+ } from '@angular-devkit/schematics';
+import { FileSystemSchematicContext } from '@angular-devkit/schematics/tools';
+import { InsertChange } from '@schematics/angular/utility/change';
+import { getWorkspace } from '@schematics/angular/utility/config';
+import {
+  buildRelativePath,
+  findModule, 
+  MODULE_EXT, 
+  ROUTING_MODULE_EXT
+} from '@schematics/angular/utility/find-module';
+import { parseName } from '@schematics/angular/utility/parse-name';
+import { buildDefaultPath } from '@schematics/angular/utility/project';
+import { getProjectFromWorkspace } from '@angular/cdk/schematics/utils/get-project';
+import {
+  addImportToModule
+ } from './vendored-ast-utils';
+import { Schema as SchemaOptions } from './schema';
+import * as ts from 'typescript';
 import {
   addPackageJsonDependency,
-  getWorkspace,
   NodeDependency,
-  NodeDependencyType,
-  getProjectFromWorkspace,
-  getAppModulePath,
-  WorkspaceProject,
-  addImportToModule,
-  // findPropertyInAstObject,
-  // findModule,
-  // removePropertyInAstObject,
-  // InsertChange,
+  NodeDependencyType
 } from 'schematics-utilities';
-
-import { getProjectMainFile, getSourceFile, } from 'schematics-utilities/dist/cdk';
-import { normalize, join } from 'path';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import { getAppName } from './cap-utils/package';
 
-export default function (options: any): Rule {
-  return chain([
-    options && options.skipModuleImport ? noop() : capAngularSchematicAuthAuth0(options),
-    options && options.skipPackageJson ? noop() : addPackageJsonDependencies(),
-    options && options.skipPackageJson ? noop() : installPackageJsonDependencies(),
-    options && options.skipModuleImport ? noop() : addModuleToImports(options),
-  ]);
-}
 
-export function setupOptions(host: Tree, options: any)  {
-  const workspace = getWorkspace(host);
-  if (!options.project) {
-    options.project = Object.keys(workspace.projects)[0];
+function readIntoSourceFile(host: Tree, filePath: string) {
+  const text = host.read(filePath);
+  if (text === null) {
+    throw new SchematicsException(`File ${filePath} does not exist.`);
   }
-  const project = workspace.projects[options.project];
-  options.path = join(normalize(project.root), 'src/app/modules/cap-auth');
-
-  return host;
+  return ts.createSourceFile(filePath, text.toString('utf-8'), ts.ScriptTarget.Latest, true);
 }
 
-export function capAngularSchematicAuthAuth0(_options: any): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
-    setupOptions(tree, _options);
+function addToNgModule(options: SchemaOptions): Rule {
+  return (host: Tree) => {
+    
+    const modulePath = options.module;
+    // Import CapAuthenticationModule and declare
+    let source = readIntoSourceFile(host, modulePath);
 
-    const movePath = normalize('src/app/modules/cap-auth');
+    const componentPath = `${options.path}/app/modules/cap-authentication/cap-authentication.module`;
+    const relativePath = buildRelativePath(modulePath, componentPath);
+    const classifiedName = 'CapAuthenticationModule';
+    const importRecorder = host.beginUpdate(modulePath);
+    const importChanges: any = addImportToModule(
+        source,
+        modulePath,
+        classifiedName,
+        relativePath);
+
+    for (const change of importChanges) {
+        if (change instanceof InsertChange) {
+          importRecorder.insertLeft(change.pos, change.toAdd);
+        }
+    }
+    host.commitUpdate(importRecorder);
+
+    return host;
+  };
+}
+
+export default function (options: SchemaOptions): Rule {
+  return (host: Tree, context: FileSystemSchematicContext) => {
+
+    const workspace = getWorkspace(host);
+    const project = getProjectFromWorkspace(workspace, options.project);
+    if (!project) {
+      throw new SchematicsException(`Project is not defined in this workspace.`);
+    }
+
+    if (options.path === undefined) {
+      options.path = buildDefaultPath(project);
+    }
+    options.module = findModule(host, options.path, 'app' + MODULE_EXT, ROUTING_MODULE_EXT);
+    options.name = '';
+    const parsedPath = parseName(options.path!, options.name);
+    options.name = parsedPath.name;
+    options.path = parsedPath.path;
+
+    // Get project
+    options.project = getAppName(host);
+    if (!options.project) {
+      throw new SchematicsException('Option "project" is required.');
+    }
+
+    const projectType: string = project.projectType || project.projects[options.project].projectType;
+    if (projectType !== 'application') {
+      throw new SchematicsException(`Is required a project type of "application".`);
+    }
+
+    // Object that will be used as context for the EJS templates.
+    const baseTemplateContext = {
+      ...strings,
+      ...options,
+    };
+
     const templateSource = apply(url('./files'), [
-      template({
-          ..._options
-          }),
-      move(movePath),
+      template(baseTemplateContext),
+      move(null as any, parsedPath.path),
       forEach((fileEntry: FileEntry) => {
-        if (tree.exists(fileEntry.path)) {
-          tree.overwrite(fileEntry.path, fileEntry.content);
+        if (host.exists(fileEntry.path)) {
+          host.overwrite(fileEntry.path, fileEntry.content);
         }
         return fileEntry;
-      }),
+      })
     ]);
-    const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
-    return rule(tree, _context);
+
+    function addPackageJsonDependencies(): Rule {
+      return (host: Tree, context: SchematicContext) => {
+        const dependencies: NodeDependency[] = [
+          // Here can depend install a auth0 or Firebase or else other module of cap authentication
+          { type: NodeDependencyType.Default, version: '^1.0.3', name: 'cap-authentication-forked' }, // forked just for test, real is for cap-authentication for auth0
+          { type: NodeDependencyType.Default, version: '^3.0.1', name: '@auth0/angular-jwt' }
+        ];
+        dependencies.forEach(dependency => {
+          addPackageJsonDependency(host, dependency);
+          context.logger.log('info', `✅️ Added "${dependency.name}" into ${dependency.type}`);
+        });
+        return host;
+      };
+    }
+
+    function installPackageJsonDependencies(): Rule {
+      return (host: Tree, context: SchematicContext) => {
+        context.addTask(new NodePackageInstallTask());
+        context.logger.log('info', `🔍 Installing packages...`);
+        return host;
+      };
+    }
+
+    return chain([
+      branchAndMerge(chain([
+        addPackageJsonDependencies(),
+        installPackageJsonDependencies(),
+        addToNgModule(options),
+        mergeWith(templateSource)
+      ])),
+    ])(host, context);
   };
-}
-export function addPackageJsonDependencies(): Rule {
-  return (host: Tree, context: SchematicContext) => {
-    const dependencies: NodeDependency[] = [
-      { type: NodeDependencyType.Default, version: '^1.0.7', name: 'cap-authentication' },
-      { type: NodeDependencyType.Default, version: '^3.0.1', name: '@auth0/angular-jwt' },
-      { type: NodeDependencyType.Default, version: '^4.3.1', name: 'bootstrap' },
-      { type: NodeDependencyType.Default, version: '^3.3.3', name: 'uuid' }
-    ];
-    dependencies.forEach(dependency => {
-      addPackageJsonDependency(host, dependency);
-      context.logger.log('info', `✅️ Added "${dependency.name}" into ${dependency.type}`);
-    });
-    return host;
-  };
-}
-
-export function installPackageJsonDependencies(): Rule {
-  return (host: Tree, context: SchematicContext) => {
-    context.addTask(new NodePackageInstallTask());
-    context.logger.log('info', `🔍 Installing packages...`);
-    return host;
-  };
-}
-
-function addModuleToImports (options: any): Rule {
-  return (host: Tree) => {
-    const workspace = getWorkspace(host);
-    let project : WorkspaceProject = getProjectFromWorkspace(workspace, options.project);
-    const moduleName = 'CapAuthModule';
-    const modulePath = getAppModulePath(host, getProjectMainFile(project));
-    auxAddModuleRoorToImports(host, modulePath, moduleName, './modules/cap-auth/cap-auth.module');
-    return host;
-  };
-}
-
-export function auxAddModuleRoorToImports (host: Tree, modulePath: string, moduleName: string, src: string) {
-  const moduleSource = getSourceFile(host, modulePath);
-
-  if (!moduleSource) {
-    throw new SchematicsException(`Module not found: ${modulePath}`);
-  }
-
-  const changes = addImportToModule(moduleSource as any, modulePath, moduleName, src);
-  let recorder = host.beginUpdate(modulePath);
-  changes.forEach((change:any) => {
-    // if (change instanceof InsertChange) {
-      if (change.toAdd) {
-        // if (change.toAdd === ',\n    CapAuthModule') {
-        //   change.toAdd = `,\n    CapAuthModule.forRoot({clientId: '${options.clientID}', domain: '${options.domain}', clientSecret: '${options.clientSecret}'})`;
-        // }
-        recorder.insertLeft(change.pos, change.toAdd);
-      }
-    // }
-  });
-  host.commitUpdate(recorder);
-  return host
 }
