@@ -121,7 +121,7 @@ export default function (options: SchemaOptions): Rule {
       return (host: Tree, context: SchematicContext) => {
         const dependencies: NodeDependency[] = [
           // Here can depend install a auth0 or Firebase or else other module of cap authentication
-          { type: NodeDependencyType.Default, version: '^1.1.0', name: 'cap-authentication' }, // forked just for test, real is for cap-authentication for auth0
+          { type: NodeDependencyType.Default, version: '^1.0.3', name: 'cap-authentication-forked' }, // forked just for test, real is for cap-authentication for auth0
           { type: NodeDependencyType.Default, version: '^3.0.1', name: '@auth0/angular-jwt' }
         ];
         dependencies.forEach(dependency => {
