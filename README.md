@@ -7,14 +7,8 @@ What distinguishes Schematics from other generators, such as Yeoman or Yarn Crea
 
 
 ## **Previous requirements**
-**cap-angular-schematic-auth-auth0** use bootstrap's classes. To be able to display the component in the right way. Schematic install bootstrap automatically to the most recent version and you have to configure the `angular.json` and write into `styles` [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/download/):
+**cap-angular-schematic-auth-auth0** use cap-angular-schematic-bootstrap as a external schematic and install bootstrap 4.0.0 automatically in your project.
 
-```
-"styles": [
-  "node_modules/bootstrap/dist/css/bootstrap.min.css",
-  "styles.scss"
-]
-```
  
 ## **Usage**
 `Note`: the schematic only works within an angular project.
@@ -30,20 +24,19 @@ previously the schematic will ask the Auth0 authentication services credentials 
 * Set your Auth0 Client ID : < your-client-id >
 * Set your Auth0 Client Secret : < your-client-secret >
 * Set your Auth0 Domain : < your-domain >
+* Set your Auth0 EndPoint : < end-point >
 
 Next, the Schematic will create a component for each of the authentication actions along with the routing configuration.
 
 ```
 modules
     |
-    cap-modules
+    cap-authentication
         |-- forgot/
         |-- login/
-        |-- logout/
         |-- profile/
         |-- register/
         |-- routing.ts 
-        |-- service.ts
         |-- module.ts
         
 ```
