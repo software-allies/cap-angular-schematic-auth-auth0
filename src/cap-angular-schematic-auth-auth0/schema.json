@@ -41,5 +41,5 @@
         }
       }
     },
-    "required": []
+    "required": ["clientID", "clientSecret", "domain"]
   }

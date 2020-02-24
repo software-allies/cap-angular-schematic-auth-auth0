@@ -100,11 +100,6 @@ export default function (options: SchemaOptions): Rule {
       throw new SchematicsException('Option "project" is required.');
     }
 
-    const projectType: string = project.projectType || project.projects[options.project].projectType;
-    if (projectType !== 'application') {
-      throw new SchematicsException(`Is required a project type of "application".`);
-    }
-
     // Object that will be used as context for the EJS templates.
     const baseTemplateContext = {
       ...strings,
@@ -126,7 +121,7 @@ export default function (options: SchemaOptions): Rule {
       return (host: Tree, context: SchematicContext) => {
         const dependencies: NodeDependency[] = [
           // Here can depend install a auth0 or Firebase or else other module of cap authentication
-          { type: NodeDependencyType.Default, version: '^1.0.3', name: 'cap-authentication-forked' }, // forked just for test, real is for cap-authentication for auth0
+          { type: NodeDependencyType.Default, version: '^1.1.0', name: 'cap-authentication' }, // forked just for test, real is for cap-authentication for auth0
           { type: NodeDependencyType.Default, version: '^3.0.1', name: '@auth0/angular-jwt' }
         ];
         dependencies.forEach(dependency => {
