@@ -7,7 +7,7 @@ import { CapAuthenticationRoutingModule } from './cap-authentication-routing.mod
 import { LoginComponent } from './login/login.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AuthenticationModule } from 'cap-authentication-forked';
+import { AuthenticationModule } from 'cap-authentication';
 
 @NgModule({
   declarations: [

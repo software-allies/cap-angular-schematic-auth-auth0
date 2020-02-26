@@ -5,7 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
-import { GuardService } from 'cap-authentication-forked';
+import { GuardService } from 'cap-authentication';
 
 const routes: Routes = [
   {
