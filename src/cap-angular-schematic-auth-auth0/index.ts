@@ -122,6 +122,7 @@ export default function (options: SchemaOptions): Rule {
         const dependencies: NodeDependency[] = [
           // Here can depend install a auth0 or Firebase or else other module of cap authentication
           { type: NodeDependencyType.Default, version: '^1.1.0', name: 'cap-authentication' },
+          { type: NodeDependencyType.Default, version: '^3.3.3', name: 'uuid' },
           { type: NodeDependencyType.Default, version: '^3.0.1', name: '@auth0/angular-jwt' }
         ];
         dependencies.forEach(dependency => {
