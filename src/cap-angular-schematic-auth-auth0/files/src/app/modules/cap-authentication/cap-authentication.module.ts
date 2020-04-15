@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthenticationModule } from 'cap-authentication';
+import { environment } from '../../../environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,9 +21,9 @@ import { AuthenticationModule } from 'cap-authentication';
     CommonModule,
     CapAuthenticationRoutingModule,
     AuthenticationModule.forRoot({
-      clientId: '<%=clientID%>',
-      clientSecret: '<%=clientSecret%>',
-      domain: '<%=domain%>',
+      clientId:<%= credentials ? `environment.clientId` : `'${clientID}'` %>,
+      clientSecret:<%= credentials ? `environment.clientSecret` : `'${clientSecret}'` %>,
+      domain:<%= credentials ? `environment.domain` : `'${domain}'` %>,
       endPoint: '<%=endPoint%>'
     })
   ],

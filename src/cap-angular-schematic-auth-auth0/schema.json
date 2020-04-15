@@ -4,13 +4,22 @@
     "title": "cap-angular-schematic-authentication-forked",
     "type": "object",
     "properties": {
+      "credentials": {
+        "type": "boolean",
+        "description": "Show or hide credentials",
+        "x-prompt": "Make credentials reference to environment.ts?",
+        "$default": {
+          "$source": "argv",
+          "index": 0
+        }
+      },
       "clientID": {
         "type": "string",
         "description": "clientID",
         "x-prompt": "Set your Auth0 Client ID:",
         "$default": {
           "$source": "argv",
-          "index": 0
+          "index": 1
         }
       },
       "clientSecret": {
@@ -19,7 +28,7 @@
         "x-prompt": "Set your Auth0 Client Secret:",
         "$default": {
           "$source": "argv",
-          "index": 1
+          "index": 2
         }
       },
       "domain": {
@@ -28,7 +37,7 @@
         "x-prompt": "Set your Auth0 Domain:",
         "$default": {
           "$source": "argv",
-          "index": 2
+          "index": 3
         }
       },
       "endPoint": {
@@ -37,9 +46,9 @@
         "x-prompt": "Set your endPoint:",
         "$default": {
           "$source": "argv",
-          "index": 3
+          "index": 4
         }
       }
     },
-    "required": ["clientID", "clientSecret", "domain"]
+    "required": ["credentials" ,"clientID", "clientSecret", "domain"]
   }
