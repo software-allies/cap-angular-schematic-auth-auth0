@@ -83,11 +83,6 @@ function addToEnvironments(options: SchemaOptions): Rule {
         addEnvironmentVar(host, '', options.path || '/src', 'clientId', options.clientID);
         addEnvironmentVar(host, '', options.path || '/src', 'clientSecret', options.clientSecret);
         addEnvironmentVar(host, '', options.path || '/src', 'domain', options.domain);
-
-        // production environment
-        addEnvironmentVar(host, 'prod', options.path || '/src', 'clientId', '');
-        addEnvironmentVar(host, 'prod', options.path || '/src', 'clientSecret', '');
-        addEnvironmentVar(host, 'prod', options.path || '/src', 'domain', '');
     }
 }
 
