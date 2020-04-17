@@ -1,6 +1,8 @@
 import {SchematicsException, Tree, UpdateRecorder} from '@angular-devkit/schematics';
 import {getChildElementIndentation} from '@angular/cdk/schematics/utils/parse5-element';
 import {DefaultTreeDocument, DefaultTreeElement, parse as parseHtml} from 'parse5';
+import { getFileContent } from '@schematics/angular/utility/test';
+
 
 
 /** Remove content from specified file. */
