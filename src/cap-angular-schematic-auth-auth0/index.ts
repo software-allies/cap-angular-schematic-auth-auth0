@@ -37,6 +37,7 @@ import {
   NodeDependencyType
 } from 'schematics-utilities';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import { addEnvironmentVar } from './cap-utils';
 import { getAppName } from './cap-utils/package';
 
 
@@ -74,6 +75,15 @@ function addToNgModule(options: SchemaOptions): Rule {
 
     return host;
   };
+}
+
+function addToEnvironments(options: SchemaOptions): Rule {
+    return (host: Tree) => {
+        // development environment
+        addEnvironmentVar(host, '', options.path || '/src', 'clientId', options.clientID);
+        addEnvironmentVar(host, '', options.path || '/src', 'clientSecret', options.clientSecret);
+        addEnvironmentVar(host, '', options.path || '/src', 'domain', options.domain);
+    }
 }
 
 export default function (options: SchemaOptions): Rule {
@@ -146,6 +156,7 @@ export default function (options: SchemaOptions): Rule {
         addPackageJsonDependencies(),
         installPackageJsonDependencies(),
         addToNgModule(options),
+        addToEnvironments(options),
         mergeWith(templateSource)
       ])),
     ])(host, context);
