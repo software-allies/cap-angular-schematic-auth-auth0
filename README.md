@@ -12,7 +12,7 @@ What distinguishes Schematics from other generators, such as Yeoman or Yarn Crea
 ```
 ng add cap-angular-schematic-bootstrap@latest 4.0.0 true
 ```
-![Alt text](https://github.com/software-allies/cap-angular-schematic-auth-auth0/blob/development/assets/images/cap-angular-schematic-bootstrap.png "cap-angular-schematic-bootstrap")
+![Alt text](https://raw.githubusercontent.com/software-allies/cap-angular-schematic-auth-auth0/development/assets/images/cap-angular-schematic-bootstrap.png "cap-angular-schematic-bootstrap")
 
  
 ## **Usage**
@@ -24,7 +24,7 @@ To run the schematic you have to execute the following command on your terminal.
 ng add cap-angular-schematic-auth-auth0
 ```
 
-![Alt text](https://github.com/software-allies/cap-angular-schematic-auth-auth0/blob/development/assets/images/cap-angular-schematic-auth-auth0.png "cap-angular-schematic-auth-auth0")
+![Alt text](https://raw.githubusercontent.com/software-allies/cap-angular-schematic-auth-auth0/development/assets/images/cap-angular-schematic-auth-auth0.png "cap-angular-schematic-auth-auth0")
 
 
 previously the schematic will ask the Auth0 authentication services credentials to be configured in the module.
@@ -52,19 +52,19 @@ Now you can run your server from your angular project that we just modified and 
 
 * Login `/auth/login`
 
-![Alt text](https://github.com/software-allies/cap-angular-schematic-auth-auth0/blob/development/assets/images/login.png "Login")
+![Alt text](https://raw.githubusercontent.com/software-allies/cap-angular-schematic-auth-auth0/development/assets/images/login.png "Login")
 
 * Register `/auth/register`
 
-![Alt text](https://github.com/software-allies/cap-angular-schematic-auth-auth0/blob/development/assets/images/register.png "Register")
+![Alt text](https://raw.githubusercontent.com/software-allies/cap-angular-schematic-auth-auth0/development/assets/images/register.png "Register")
 
 * Forgot `/auth/forgot-password`
 
-![Alt text](https://github.com/software-allies/cap-angular-schematic-auth-auth0/blob/development/assets/images/forgot.png "Forgot-Password")
+![Alt text](https://raw.githubusercontent.com/software-allies/cap-angular-schematic-auth-auth0/development/assets/images/forgot.png "Forgot-Password")
 
 * Profile `/auth/profile`
 
-![Alt text](https://github.com/software-allies/cap-angular-schematic-auth-auth0/blob/development/assets/images/profile.png "Profile")
+![Alt text](https://raw.githubusercontent.com/software-allies/cap-angular-schematic-auth-auth0/development/assets/images/profile.png "Profile")
 
 * LogOut function 
 
