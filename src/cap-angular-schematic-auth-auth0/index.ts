@@ -80,9 +80,9 @@ function addToNgModule(options: SchemaOptions): Rule {
 function addToEnvironments(options: SchemaOptions): Rule {
     return (host: Tree) => {
         // development environment
-        addEnvironmentVar(host, '', options.path || '/src', 'clientId', options.clientID);
-        addEnvironmentVar(host, '', options.path || '/src', 'clientSecret', options.clientSecret);
-        addEnvironmentVar(host, '', options.path || '/src', 'domain', options.domain);
+        addEnvironmentVar(host, '', options.path || '/src', 'clientId', options.credentials ? options.clientID : '');
+        addEnvironmentVar(host, '', options.path || '/src', 'clientSecret', options.credentials ? options.clientSecret : '');
+        addEnvironmentVar(host, '', options.path || '/src', 'domain', options.credentials ? options.domain: '');
     }
 }
 

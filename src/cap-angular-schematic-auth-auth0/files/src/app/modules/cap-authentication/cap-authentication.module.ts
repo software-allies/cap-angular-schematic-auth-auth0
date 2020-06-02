@@ -21,9 +21,9 @@ import { environment } from '../../../environments/environment';
     CommonModule,
     CapAuthenticationRoutingModule,
     AuthenticationModule.forRoot({
-      clientId:<%= credentials ? `environment.clientId` : `'${clientID}'` %>,
-      clientSecret:<%= credentials ? `environment.clientSecret` : `'${clientSecret}'` %>,
-      domain:<%= credentials ? `environment.domain` : `'${domain}'` %>,
+      clientId: environment.clientId,
+      clientSecret: environment.clientSecret,
+      domain: environment.domain,
       endPoint: '<%=endPoint%>'
     })
   ],
