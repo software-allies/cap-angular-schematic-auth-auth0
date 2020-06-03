@@ -61,10 +61,11 @@ function addToNgModule(options: SchemaOptions): Rule {
     const classifiedName = 'CapAuthenticationModule';
     const importRecorder = host.beginUpdate(modulePath);
     const importChanges: any = addImportToModule(
-        source,
-        modulePath,
-        classifiedName,
-        relativePath);
+      source,
+      modulePath,
+      classifiedName,
+      relativePath
+    );
 
     for (const change of importChanges) {
         if (change instanceof InsertChange) {
@@ -78,12 +79,17 @@ function addToNgModule(options: SchemaOptions): Rule {
 }
 
 function addToEnvironments(options: SchemaOptions): Rule {
-    return (host: Tree) => {
-        // development environment
-        addEnvironmentVar(host, '', options.path || '/src', 'clientId', options.credentials ? options.clientID : '');
-        addEnvironmentVar(host, '', options.path || '/src', 'clientSecret', options.credentials ? options.clientSecret : '');
-        addEnvironmentVar(host, '', options.path || '/src', 'domain', options.credentials ? options.domain: '');
+  return (host: Tree) => {
+    // development environment
+    addEnvironmentVar(host, '', options.path || '/src', 'clientId', options.credentials ? options.clientID : '');
+    addEnvironmentVar(host, '', options.path || '/src', 'clientSecret', options.credentials ? options.clientSecret : '');
+    addEnvironmentVar(host, '', options.path || '/src', 'domain', options.credentials ? options.domain: '');
+    if (options.credentials) {
+      addEnvironmentVar(host, 'prod', options.path || '/src', 'clientId', options.credentials ? options.clientID : '');
+      addEnvironmentVar(host, 'prod', options.path || '/src', 'clientSecret', options.credentials ? options.clientSecret : '');
+      addEnvironmentVar(host, 'prod', options.path || '/src', 'domain', options.credentials ? options.domain: '');
     }
+  }
 }
 
 export default function (options: SchemaOptions): Rule {
