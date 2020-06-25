@@ -1,6 +1,6 @@
 {
   "name": "cap-angular-schematic-auth-auth0",
-  "version": "1.1.20",
+  "version": "1.1.21",
   "description": "Angular schematic dedicated to the authentication of users with auth0 services.",
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -31,6 +31,7 @@
     }
   ],
   "license": "MIT",
+  "homepage": "https://www.softwareallies.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/software-allies/cap-angular-schematic-auth-auth0"
