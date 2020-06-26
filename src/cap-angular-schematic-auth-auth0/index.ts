@@ -37,8 +37,8 @@ import {
   NodeDependencyType
 } from 'schematics-utilities';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { addEnvironmentVar } from './cap-utils';
-import { getAppName } from './cap-utils/package';
+import { addEnvironmentVar, appendToStartFile } from './cap-utils';
+import { getAppName  } from './cap-utils/package';
 
 
 function readIntoSourceFile(host: Tree, filePath: string) {
@@ -92,6 +92,126 @@ function addToEnvironments(options: SchemaOptions): Rule {
   }
 }
 
+function appendToStylesFile(path: string): Rule {
+  return (host: Tree) => {
+    const content = `
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3em;
+}
+
+.box > div {
+  height: max-content !important;
+  border-radius: 12px !important;
+  font-family: "Segoe UI","Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
+  padding: 50px !important;
+  width: 550px !important;
+  margin: 0 !important;
+  color: #000;
+  background-color:  #e9ecef;
+}
+
+.box > div > form > div input {
+  border-radius: 12px !important;
+  // background-color: #e2e3e5;
+  // background-color:  #e9ecef;
+  border-color: #000;
+}
+
+.box > div > form > div input:focus {
+  border-radius: 12px !important;
+  outline:none !important;
+  outline-width: 0 !important;
+  box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  border-color: #000;
+  // background-color: #e9ecef;
+  border-width: 1.5px;
+}
+
+.box > div > form > div small a {
+  color: #000;
+}
+
+.box > div > form button {
+  margin-top: 2em !important;
+  border-radius: 12px !important;
+  background-color: #000 ;
+  border-color: #000;
+  color: #fff;
+}
+
+.box > div > form button:hover {
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+.box > div > div > form > div > div > div >input {
+  border-radius: 12px !important;
+  border-color: #000;
+  // background-color: #e9ecef;
+  // background-color: #e2e3e5;
+
+}
+
+.box > div > div > form > div > div > div >input:focus {
+  border-radius: 12px !important;
+  outline:none !important;
+  outline-width: 0 !important;
+  box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  border-color: #000;
+  // background-color: #e9ecef;
+  border-width: 1.5px;
+}
+
+.box > div > div > form > div > div > button {
+  margin-top: 2em !important;
+  border-radius: 12px !important;
+  background-color: #000;
+  border-color: #000;
+  color: #fff;
+}
+
+.box > div > div > form > div > div > button:hover {
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+.box > div > div > div > div > button {
+  margin-top: 2em !important;
+  border-radius: 12px !important;
+  background-color: #000;
+  border-color: #000;
+  color: #fff ;
+}
+
+.box > div > div > div > div > button:hover {
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+.box > div > div > div > div > div > button {
+  margin-top: 2em !important;
+  border-radius: 12px !important;
+  background-color: #000;
+  border-color: #000;
+  color: #fff;
+}
+
+.box > div > div > div > div > div > button:hover {
+  background-color: #343a40;
+  border-color: #343a40;
+}`;
+    appendToStartFile(host, path, content);
+    return host;
+  };
+}
+
 export default function (options: SchemaOptions): Rule {
   return (host: Tree, context: FileSystemSchematicContext) => {
 
@@ -121,6 +241,17 @@ export default function (options: SchemaOptions): Rule {
       ...strings,
       ...options,
     };
+
+    // Get the styles.scss file 
+    let styles = `src/styles.scss`;
+
+    if (host.read(styles) === null) {
+      styles = `src/styles.css`;
+    }
+
+    const files: any = {
+      styles: styles,
+    }
 
     const templateSource = apply(url('./files'), [
       template(baseTemplateContext),
@@ -163,7 +294,8 @@ export default function (options: SchemaOptions): Rule {
         installPackageJsonDependencies(),
         addToNgModule(options),
         addToEnvironments(options),
-        mergeWith(templateSource)
+        mergeWith(templateSource),
+        appendToStylesFile(files.styles)
       ])),
     ])(host, context);
   };
