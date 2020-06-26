@@ -95,6 +95,14 @@ function addToEnvironments(options: SchemaOptions): Rule {
 function appendToStylesFile(path: string): Rule {
   return (host: Tree) => {
     const content = `
+/*
+*
+* ==========================================
+* AUTHENTICATION STYLES 
+* ==========================================
+*
+*/
+
 .box {
   display: flex;
   align-items: center;
