@@ -4,5 +4,9 @@
   </h1>
 </header>
 <section>
-    <cap-change-password></cap-change-password>
+  <cap-change-password
+    (userEmail)="userEmail($event)"
+    (forgotPasswordRequest)="forgotPasswordRequest($event)"
+    (forgotPasswordRequestError)="forgotPasswordRequestError($event)">
+  </cap-change-password>
 </section>

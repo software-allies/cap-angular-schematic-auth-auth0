@@ -11,4 +11,16 @@ export class ForgotComponent implements OnInit {
 
   ngOnInit() {}
 
+  userEmail(email: any) {
+    // console.log(email);
+  }
+
+  forgotPasswordRequest(request: any) {
+    // console.log(request);
+  }
+
+  forgotPasswordRequestError(requestError: any) {
+    // console.log(requestError);
+  }
+
 }

@@ -4,5 +4,14 @@
   </h1>
 </header>
 <section>
-    <cap-profile></cap-profile>
+  <cap-profile
+    (userProfileData)="userProfileData($event)"
+    (userProfileError)="userProfileError($event)"
+    (userProfileUpdate)="userProfileUpdate($event)"
+    (userProfileUpdateError)="userProfileUpdateError($event)"
+    (userProfileDataBase)="userProfileDataBase($event)"
+    (userProfileDataBaseUpdate)="userProfileDataBaseUpdate($event)"
+    (userProfileDataBaseUpdateError)="userProfileDataBaseUpdateError($event)"
+    (userProfileDataBaseError)="userProfileDataBaseError($event)">
+  </cap-profile>
 </section>

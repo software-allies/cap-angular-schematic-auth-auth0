@@ -11,4 +11,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() { }
 
+  userLoginData(userData: any) {
+    // console.log('AuthComponent', userData);
+  }
+
+  userLoginError(UserError: any) {
+    // console.log('UserError', UserError);
+  }
+
 }

@@ -4,5 +4,9 @@
   </h1>
 </header>
 <section>
-    <cap-register></cap-register>
+  <cap-register
+    (userRegisterData)="userRegisterData($event)"
+    (userRegisterError)="userRegisterError($event)"
+    (userRegisterJWT)="userRegisterJWT($event)">
+  </cap-register>
 </section>
