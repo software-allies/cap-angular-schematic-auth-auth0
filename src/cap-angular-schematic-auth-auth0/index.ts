@@ -240,7 +240,7 @@ function appendToStylesFile(path: string): Rule {
 }
 
 .box > div > div > div > div > div > button {
-  margin-top: 2em !important;
+  // margin-top: 2em !important;
   border-radius: 12px !important;
   background-color: #000;
   border-color: #000;
@@ -326,7 +326,7 @@ export default function (options: SchemaOptions): Rule {
       return (host: Tree, context: SchematicContext) => {
         const dependencies: NodeDependency[] = [
           // Here can depend install a auth0 or Firebase or else other module of cap authentication
-          { type: NodeDependencyType.Default, version: '^1.1.18', name: 'cap-authentication' },
+          { type: NodeDependencyType.Default, version: '^1.1.20', name: 'cap-authentication' },
           { type: NodeDependencyType.Default, version: '^3.3.3', name: 'uuid' },
           { type: NodeDependencyType.Default, version: '^3.0.1', name: '@auth0/angular-jwt' }
         ];
