@@ -3,8 +3,6 @@ import {getChildElementIndentation} from '@angular/cdk/schematics/utils/parse5-e
 import {DefaultTreeDocument, DefaultTreeElement, parse as parseHtml} from 'parse5';
 import { getFileContent } from '@schematics/angular/utility/test';
 
-
-
 /** Remove content from specified file. */
 export function removeContentFromFile(host: Tree, filePath: string) {
     const fileBuffer = host.read(filePath);
@@ -28,8 +26,8 @@ export function appendToStartFile(host: Tree, filePath: string, fragment: string
     const insertion = `${' '.repeat(0)}${fragment}`;
     let recordedChange: UpdateRecorder;
     recordedChange = host
-        .beginUpdate(filePath)
-        .insertRight(0, `${insertion}\n`);
+      .beginUpdate(filePath)
+      .insertRight(0, `${insertion}\n`);
     host.commitUpdate(recordedChange);
 }
 
@@ -65,15 +63,15 @@ export function appendHtmlElementToBody(host: Tree, htmlFilePath: string, elemen
     let recordedChange: UpdateRecorder;
 
     if (side === 'left') {
-        recordedChange = host
-            .beginUpdate(htmlFilePath)
-            .insertLeft(startTagOffset, `${insertion}\n`);
-        host.commitUpdate(recordedChange);
+      recordedChange = host
+          .beginUpdate(htmlFilePath)
+          .insertLeft(startTagOffset, `${insertion}\n`);
+      host.commitUpdate(recordedChange);
     } else if (side === 'right')  {
-        recordedChange = host
-            .beginUpdate(htmlFilePath)
-            .insertRight(endTagOffset, `${insertion}\n`);
-        host.commitUpdate(recordedChange);
+      recordedChange = host
+          .beginUpdate(htmlFilePath)
+          .insertRight(endTagOffset, `${insertion}\n`);
+      host.commitUpdate(recordedChange);
     }
   }
 
