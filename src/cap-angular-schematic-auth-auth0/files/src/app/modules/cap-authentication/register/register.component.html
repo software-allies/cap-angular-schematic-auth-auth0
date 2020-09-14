@@ -5,6 +5,9 @@
 </header>
 <section>
   <cap-register
+    [redirectTo]="'/auth/verify'"
+    [profileType]="false"
+    [profileTypeArray]="['Company','Job Seeker','University','Student']"
     (userRegisterData)="userRegisterData($event)"
     (userRegisterError)="userRegisterError($event)"
     (userRegisterJWT)="userRegisterJWT($event)">
