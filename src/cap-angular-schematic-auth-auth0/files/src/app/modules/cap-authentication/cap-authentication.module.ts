@@ -2,22 +2,24 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RegisterComponent } from './register/register.component';
 import { CapAuthenticationRoutingModule } from './cap-authentication-routing.module';
-import { LoginComponent } from './login/login.component';
-import { ForgotComponent } from './forgot/forgot.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { RegisterComponent } from './register/register.component';
+import { environment } from '../../../environments/environment';
 import { ProfileComponent } from './profile/profile.component';
+import { ForgotComponent } from './forgot/forgot.component';
 import { VerifyComponent } from './verify/verify.component';
 import { AuthenticationModule } from 'cap-authentication';
-import { environment } from '../../../environments/environment';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
+    ChangePasswordComponent,
     RegisterComponent,
-    LoginComponent,
-    ForgotComponent,
     ProfileComponent,
-    VerifyComponent
+    ForgotComponent,
+    VerifyComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -31,11 +33,12 @@ import { environment } from '../../../environments/environment';
   ],
   exports: [
     AuthenticationModule,
+    ChangePasswordComponent,
     RegisterComponent,
-    LoginComponent,
-    ForgotComponent,
     ProfileComponent,
-    VerifyComponent
+    ForgotComponent,
+    VerifyComponent,
+    LoginComponent
   ]
 })
 export class CapAuthenticationModule {}
