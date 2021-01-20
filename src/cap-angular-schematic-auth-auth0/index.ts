@@ -326,9 +326,12 @@ export default function (options: SchemaOptions): Rule {
       return (host: Tree, context: SchematicContext) => {
         const dependencies: NodeDependency[] = [
           // Here can depend install a auth0 or Firebase or else other module of cap authentication
-          { type: NodeDependencyType.Default, version: '^1.1.23', name: 'cap-authentication' },
+          { type: NodeDependencyType.Default, version: '^1.1.24', name: 'cap-authentication' },
           { type: NodeDependencyType.Default, version: '^3.3.3', name: 'uuid' },
-          { type: NodeDependencyType.Default, version: '^3.0.1', name: '@auth0/angular-jwt' }
+          { type: NodeDependencyType.Default, version: '^3.0.1', name: '@auth0/angular-jwt' },
+          { type: NodeDependencyType.Default, version: '2.0.0', name: 'angular-password-strength-meter' },
+          { type: NodeDependencyType.Default, version: '4.4.2', name: 'zxcvbn' }
+
         ];
         dependencies.forEach(dependency => {
           addPackageJsonDependency(host, dependency);
