@@ -1,20 +1,8 @@
-header {
-  &.title {
-    padding: 60px 0;
-    width: 100%;
-    background-color: #e9ecef;
-  }
-  h1, h2, h3 {
-    text-align: center;
-    color: #000;
-  }
-}
-
 section {
-  min-height: 100vh;
+  min-height: 50vh;
   overflow: hidden;
   width: 100%;
   background-color: white;
   transition: margin-left 4s ease-in-out 1s;
-  padding: 20px 20px;
+  padding: 10rem 15%;
 }
