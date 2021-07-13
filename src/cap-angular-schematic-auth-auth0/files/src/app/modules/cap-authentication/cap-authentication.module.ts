@@ -9,8 +9,9 @@ import { environment } from '../../../environments/environment';
 import { ProfileComponent } from './profile/profile.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { VerifyComponent } from './verify/verify.component';
-import { AuthenticationModule } from 'cap-authentication';
 import { LoginComponent } from './login/login.component';
+import { AuthenticationModule } from 'cap-authentication';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,9 @@ import { LoginComponent } from './login/login.component';
     ForgotComponent,
     VerifyComponent,
     LoginComponent
+  ],
+  providers:[
+    CookieService
   ]
 })
 export class CapAuthenticationModule {}
