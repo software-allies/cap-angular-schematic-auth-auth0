@@ -7,20 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   userRegisterData(UserData: any) {
     // console.log(UserData);
   }
-
   userRegisterError(UserError: any) {
     // console.log(UserError);
   }
-
   userRegisterJWT(JWT: any) {
     // console.log(JWT);
   }
-  
 }

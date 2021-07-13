@@ -10,16 +10,19 @@ export class VerifyComponent implements OnInit {
 
   ngOnInit() {}
   
-  userVerifyData(data: any) {
-    // console.log('userVerifyData', data);
+  userProfileData(event) {
+    // console.log('userProfileData', event);
   }
-  userVerifyError(data: any) {
-    // console.log('userVerifyError', data);
+  userProfileError(event) {
+    // console.log('userProfileError', event);
   }
-  userVerify(data: any) {
-    // console.log('userVerify', data);
+  userProfileVerify(event) {
+    // console.log('userProfileVerify', event);
   }
-  forwardedMail(data: any) {
-    // console.log('forwardedMail', data);
+  forwardedMail(event) {
+    // console.log('forwardedMail', event);
+  }
+  forwardedMailError(event) {
+    // console.log('forwardedMailError', event);
   }
 }
