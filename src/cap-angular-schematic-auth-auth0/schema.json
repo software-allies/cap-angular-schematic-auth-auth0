@@ -4,13 +4,23 @@
     "title": "cap-angular-schematic-authentication-forked",
     "type": "object",
     "properties": {
+      "angularVersion": {
+        "type": "string",
+        "description": "Which service for authentication you choose?",
+        "x-prompt": "Which service for authentication you choose?",
+        "enum": ["Angular 8", "Angular 9"],
+        "$default": {
+          "$source": "argv",
+          "index": 0
+        }
+      },
       "credentials": {
         "type": "boolean",
         "description": "Show or hide credentials",
         "x-prompt": "Add credentials in environment.ts for local use?",
         "$default": {
           "$source": "argv",
-          "index": 0
+          "index": 1
         }
       },
       "clientID": {
@@ -19,7 +29,7 @@
         "x-prompt": "Set your Auth0 Client ID:",
         "$default": {
           "$source": "argv",
-          "index": 1
+          "index": 2
         }
       },
       "clientSecret": {
@@ -28,7 +38,7 @@
         "x-prompt": "Set your Auth0 Client Secret:",
         "$default": {
           "$source": "argv",
-          "index": 2
+          "index": 3
         }
       },
       "domain": {
@@ -37,7 +47,7 @@
         "x-prompt": "Set your Auth0 Domain:",
         "$default": {
           "$source": "argv",
-          "index": 3
+          "index": 4
         }
       },
       "endPoint": {
@@ -46,9 +56,9 @@
         "x-prompt": "Set your endPoint:",
         "$default": {
           "$source": "argv",
-          "index": 4
+          "index": 5
         }
       }
     },
-    "required": ["credentials" ,"clientID", "clientSecret", "domain"]
+    "required": ["angularVersion", "credentials" ,"clientID", "clientSecret", "domain"]
   }
