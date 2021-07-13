@@ -1,15 +1,12 @@
-<header class="title">
-    <h1>
-      Verify Account
-    </h1>
-  </header>
-  <section>
-    <cap-verify-firebase
-        [redirectTo]="'/'"
-        (userProfileData)="userVerifyData($event)"
-        (userProfileError)="userVerifyError($event)"
-        (userProfileVerify)="userVerify($event)"
-        (forwardedMail)="forwardedMail($event)">
-    </cap-verify-firebase>
-  </section>
+<section>
+  <cap-verify-firebase
+    [redirectIfVerified]="'/auth/profile'"
+    [titleComponent]="'Verify your account'"
+    (userProfileData)="userProfileData($event)"
+    (userProfileError)="userProfileError($event)"
+    (userProfileVerify)="userProfileVerify($event)"
+    (forwardedMail)="forwardedMail($event)"
+    (forwardedMailError)="forwardedMailError($event)"
+  ></cap-verify-firebase>
+</section>
   
