@@ -1,10 +1,9 @@
-<header class="title">
-  <h1>
-    Login
-  </h1>
-</header>
+
 <section>
   <cap-login
+    [titleComponent]="'Login'"
+    [redirectAfterTo]="'/'"
+    [redirectForgotPassword]="'/auth/forgot-password'"
     (userLoginData)="userLoginData($event)"
     (userLoginError)="userLoginError($event)">
   </cap-login>
