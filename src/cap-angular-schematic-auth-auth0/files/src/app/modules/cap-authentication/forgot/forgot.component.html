@@ -1,10 +1,6 @@
-<header class="title">
-  <h1>
-    Forgot Password
-  </h1>
-</header>
 <section>
   <cap-forgot-password
+    [titleComponent]="'Forgot Password'"
     (userEmail)="userEmail($event)"
     (forgotPasswordRequest)="forgotPasswordRequest($event)"
     (forgotPasswordRequestError)="forgotPasswordRequestError($event)">
