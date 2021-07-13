@@ -274,7 +274,7 @@ export default function (options: SchemaOptions): Rule {
   return (host: Tree, context: FileSystemSchematicContext) => {
 
     const workspace = getWorkspace(host);
-    const project = getProjectFromWorkspace(workspace, options.project);
+    const project: any = getProjectFromWorkspace(workspace, options.project);
     if (!project) {
       throw new SchematicsException(`Project is not defined in this workspace.`);
     }
@@ -322,16 +322,15 @@ export default function (options: SchemaOptions): Rule {
       })
     ]);
 
-    function addPackageJsonDependencies(): Rule {
+    function addPackageJsonDependencies(options: SchemaOptions): Rule {
       return (host: Tree, context: SchematicContext) => {
         const dependencies: NodeDependency[] = [
-          // Here can depend install a auth0 or Firebase or else other module of cap authentication
-          { type: NodeDependencyType.Default, version: '^1.1.24', name: 'cap-authentication' },
+          { type: NodeDependencyType.Default, version: '^1.2.0', name: 'cap-authentication' },
           { type: NodeDependencyType.Default, version: '^3.3.3', name: 'uuid' },
           { type: NodeDependencyType.Default, version: '^3.0.1', name: '@auth0/angular-jwt' },
           { type: NodeDependencyType.Default, version: '2.0.0', name: 'angular-password-strength-meter' },
-          { type: NodeDependencyType.Default, version: '4.4.2', name: 'zxcvbn' }
-
+          { type: NodeDependencyType.Default, version: '4.4.2', name: 'zxcvbn' },
+          { type: NodeDependencyType.Default, version: options.angularVersion === 'Angular 9' ? '^12.0.0' : '2.3.0', name: 'ngx-cookie-service' }
         ];
         dependencies.forEach(dependency => {
           addPackageJsonDependency(host, dependency);
@@ -351,7 +350,7 @@ export default function (options: SchemaOptions): Rule {
 
     return chain([
       branchAndMerge(chain([
-        addPackageJsonDependencies(),
+        addPackageJsonDependencies(options),
         installPackageJsonDependencies(),
         addToNgModule(options),
         addToEnvironments(options),
