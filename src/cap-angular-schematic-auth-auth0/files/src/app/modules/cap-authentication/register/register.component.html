@@ -1,15 +1,19 @@
-<header class="title">
-  <h1>
-    Create your account
-  </h1>
-</header>
 <section>
   <cap-register
-    [redirectTo]="'/auth/verify'"
-    [profileType]="false"
-    [profileTypeArray]="['Company','Job Seeker','University','Student']"
+
+    [confirmPasswordInput]="true"
+    [companyInput]="true"
+    [firstNameInput]="true"
+    [lastNameInput]="true"
+    [profileInput]="false"
+    [titleComponent]="'Create your Account'"
+    [redirectAfterTo]="'/auth/verify'"
+    [profileArrayValues]="[
+      { field: 'Company', value: 'Company', id: 1 },
+      { field: 'Student', value: 'Student', id: 2 }
+    ]"
+    (userRegisterJWT)="userRegisterJWT($event)">
     (userRegisterData)="userRegisterData($event)"
     (userRegisterError)="userRegisterError($event)"
-    (userRegisterJWT)="userRegisterJWT($event)">
   </cap-register>
 </section>
