@@ -4,6 +4,7 @@ export interface Schema {
     domain: string;
     credentials: boolean;
     endPoint: string;
+    angularVersion: string;
     project?: string
     path?: string;
     module?: any;
